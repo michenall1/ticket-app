@@ -1,4 +1,8 @@
-const TicketList = ({ tickets, dispatch }) => {
+import { useContext } from 'react';
+import { TicketDispatchContext } from '../context/TicketContext';
+
+const TicketList = ({ tickets }) => {
+	const dispatch = useContext(TicketDispatchContext);
 	return (
 		<>
 			{tickets.map(({ id, text, resolved }) => (

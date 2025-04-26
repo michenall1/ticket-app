@@ -1,8 +1,11 @@
 import TicketTab from './TicketTab';
 import TicketList from './TicketList';
+import { useContext } from 'react';
+import { TicketContext, TicketDispatchContext } from '../context/TicketContext';
 
-const TicketDisplay = ({ displayModel, dispatch }) => {
-	const { filter, tickets } = displayModel;
+const TicketDisplay = () => {
+	const { filter, tickets } = useContext(TicketContext);
+	const dispatch = useContext(TicketDispatchContext);
 
 	const filteredTickets = tickets.filter(ticket => {
 		if (filter === 'all') return true;
@@ -18,7 +21,7 @@ const TicketDisplay = ({ displayModel, dispatch }) => {
 					dispatch({ type: 'change_filter', filter: newFilter })
 				}
 			/>
-			<TicketList tickets={filteredTickets} dispatch={dispatch} />
+			<TicketList tickets={filteredTickets} />
 		</>
 	);
 };

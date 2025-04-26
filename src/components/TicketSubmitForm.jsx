@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { TicketDispatchContext } from '../context/TicketContext';
 
 export default function TicketSubmitForm({ onSubmit }) {
+	const dispatch = useContext(TicketDispatchContext);
 	const [text, updateText] = useState('');
 	return (
 		<>
@@ -11,7 +13,10 @@ export default function TicketSubmitForm({ onSubmit }) {
 			/>
 			<button
 				onClick={() => {
-					onSubmit(text);
+					dispatch({
+						type: 'add_ticket',
+						text,
+					});
 				}}
 			>
 				Submit

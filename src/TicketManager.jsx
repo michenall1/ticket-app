@@ -5,22 +5,24 @@ import {
 	initialState,
 	ticketManagerReducer,
 } from './reducers/ticketDisplayReducer.js';
+import {
+	TicketContext,
+	TicketDispatchContext,
+} from './context/TicketContext.js';
 
 export default function TicketManager() {
 	const [state, dispatch] = useImmerReducer(
 		ticketManagerReducer,
 		initialState
 	);
-	function onSubmit(text) {
-		dispatch({
-			type: 'add_ticket',
-			text,
-		});
-	}
 	return (
 		<>
-			<TicketSubmitForm onSubmit={onSubmit} />
-			<TicketDisplay displayModel={state} dispatch={dispatch} />
+			<TicketContext.Provider value={state}>
+				<TicketDispatchContext.Provider value={dispatch}>
+					<TicketSubmitForm />
+					<TicketDisplay />
+				</TicketDispatchContext.Provider>
+			</TicketContext.Provider>
 		</>
 	);
 }
